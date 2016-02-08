@@ -1,1 +1,1 @@
-# SciBaseGraphDB
+# SciBase GraphDB
