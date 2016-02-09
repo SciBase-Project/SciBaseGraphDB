@@ -50,7 +50,7 @@ Proposed:-
 				16.	delete_affiliation_nodes([affiliation_name])
 				17.	get_affiliations()
 				18.	get_affiliations_by_country(country_name)
-				19. get_affiliations_by_domains(domain)
+				19.	get_affiliations_by_domains(domain)
 	4.		Computed Relationships CRUD Methods
 
 Implemented:-
