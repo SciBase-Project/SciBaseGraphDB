@@ -22,7 +22,7 @@ Proposed:-
 				8.	get_journals_by_publisher(publisher_name)
 				9.	get_articles_by_primary_author(primary_author_name)
 				10.	get_articles_by_domain(domain)
-				11. get_articles_by_country(country_name)
+				11.	get_articles_by_country(country_name)
 				12.	get_articles_by_continent(continent_name)
 				13.	get_articles_by_journal(journal_name)
 				14.	delete_journal_nodes([TUPLE(journal_name, journal_ISSN)])
