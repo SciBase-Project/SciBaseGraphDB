@@ -9,7 +9,6 @@ SciBase GraphDB API is a python API library maintained for access to the *SciBas
   - *Member* Nodes CRUD Methods
   - *Computed Relationships* CRUD Methods
 
-Markdown is a lightweight markup language based on the formatting conventions that people naturally use in email. 
 For more information, contact 
   - [Snehanshu Saha]
   - [Sandesh Sanjay Gade]
