@@ -2,7 +2,7 @@
 ___
 > This API is currently still under **active development**. Do not implement/deploy builds of the API without understanding the risks involved.
 
-### CRUD Operations for SciBase Backend Operations
+### CRUD Methods for SciBase Backend Operations
 SciBase GraphDB API is a python API library maintained for access to the *SciBase GraphDB*. The different categories of exposed methods are as follows:-
   - *Geophysical* Nodes CRUD Methods
   - *Entity* Nodes CRUD Methods
