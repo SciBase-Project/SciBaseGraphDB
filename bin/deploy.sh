@@ -19,9 +19,9 @@ function print() {
 	printf "\n";
 }
 
-check_python_modules() {
+function check_python_modules() {
 	print $mode "Checking for python modules NOW!";
-	
+
 	pip3 --version &> /dev/null;
 	pip3_check_status_code=$?;
 	case "$pip3_check_status_code" in
