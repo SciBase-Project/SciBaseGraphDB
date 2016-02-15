@@ -2,6 +2,7 @@ import hug
 
 @hug.post('/create_country_nodes', versions=1)
 def create_country_nodes(values):
+	'''Create country nodes to the GraphDB'''
 	# Code goes here!
 	return ("Acknowledged!")
 
