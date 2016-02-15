@@ -1,8 +1,8 @@
 import hug
 
-@hug.get('/')
+@hug.get('/hi')
 def say_hi():
-	return "You seem to be lost!"
+	return "Hey YOU! :) "
 
 from modules.geophysical import geophysical_methods
 __hug__.extend(geophysical_methods, '/geophysical')
