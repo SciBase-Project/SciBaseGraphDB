@@ -3,7 +3,15 @@ import hug
 @hug.post('/create_journal_nodes', versions=1)
 def create_journal_nodes(values):
 	# Code goes here!
-	return ()
+	output = []
+	for journal_name, journal_info in values.items():
+		print("Processing {journal_name}".format(**locals()))
+		print("\t PUBLISHER: \t {journal_info[journal_publisher]}".format(**locals()))
+		print("\t DOMAIN: \t {journal_info[journal_domain]}".format(**locals()))
+		print("\t ISSN: \t\t {journal_info[journal_ISSN]}".format(**locals()))
+		print("\t COUNTRY: \t {journal_info[journal_country]}".format(**locals()))
+		output.append("Added ")
+	return ("done")
 
 @hug.post('/create_article_nodes', versions=1)
 def create_article_nodes(values):
