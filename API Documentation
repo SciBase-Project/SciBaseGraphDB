@@ -3,16 +3,16 @@ CRUD Operations for SciBase Backend Operations
 
 Proposed:-
 	1.		Geophysical Nodes CRUD Methods
-				1.	create_country_nodes([country_names])
-				2.	create_continent_nodes([continent_names])
-				3.	attach_countries_to_continent([country_name, continent_name])
+				1.	create_country_nodes({"values" = [country_names]})
+				2.	create_continent_nodes({"values" = [continent_names]})
+				3.	attach_countries_to_continent({"values" = [country_name, continent_name]})
 				4.	get_countries()
 				5.	get_countries_by_continent(continent_name)
 				6.	get_continents()
 				7.	delete_country_nodes([country_names])
 				8.	delete_continent_nodes([continent_names])
 	2.		Entity Nodes CRUD Methods
-				1.	create_journal_nodes([TUPLE(journal_name, journal_publisher, journal_domain, journal_ISSN, journal_country)])
+				1.	create_journal_nodes("values" : {"journal_name" : {"journal_publisher": "", "journal_domain": "", "journal_ISSN":"", "journal_country":""}})
 				2.	create_article_nodes([TUPLE(article_title, article_DOI, article_citation_count, article_self_citation_count, article_downloads_count, article_source_cites_count, article_month, article_year, [author_names])])
 				3.	attach_articles_to_journals([TUPLE([article_DOIs], journal_name]))
 				4.	get_journals()
