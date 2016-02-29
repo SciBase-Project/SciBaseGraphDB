@@ -6,7 +6,7 @@ def create_country_nodes(values):
 	output = []
 	for country in values:
 		print("Add COUNTRY node: {country}".format(**locals()))
-		output.append("{country} added.")
+		output.append("{country} added.".format(**locals()))
 	return (output)
 
 @hug.post('/create_continent_nodes', versions=1)
