@@ -79,7 +79,7 @@ $ //add hug/falcon installation instructions here
 ```
 
 ```sh
-$ add some more code here
+$ add some more code here. Saijal made some changes here!
 ```
 
 ### Plugins
