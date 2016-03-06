@@ -19,7 +19,7 @@ def create_article_nodes():
 	return
 
 def create_geophysical_nodes():
-	with open('config/geophysical.json') as geophysical_file:
+	with open('data/geophysical.json') as geophysical_file:
 		geophysical = json.load(geophysical_file)
 
 	print("\t\t CONTINENTS:")
@@ -28,6 +28,9 @@ def create_geophysical_nodes():
 	create_country_nodes(list())
 	print("\t\t CITIES:")
 	create_city_nodes()
+	return
+
+def create_member_nodes():
 	return
 
 def populate_db():
