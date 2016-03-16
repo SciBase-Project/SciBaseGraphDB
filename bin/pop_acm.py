@@ -3,13 +3,19 @@ import json
 from pprint import pprint
 
 
-def create_country_nodes():
+def create_country_nodes(list_of_countries):
+	for country in list_of_countries:
+        country_to_be_added = graph.merge_one("Country", "name", country) 
 	return
 
-def create_city_nodes():
+def create_city_nodes(list_of_cities):
+	for city in list_of_cities:
+    	city_to_be_added = graph.merge_one("City", "name", city) 
 	return
 
-def create_continent_nodes():
+def create_continent_nodes(list_of_continents):
+	for continent in list_of_continents:
+        continent_to_be_added=graph.merge_one("Continent", "name", continent)
 	return
 
 def create_journal_nodes():
