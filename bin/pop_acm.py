@@ -2,43 +2,19 @@ from py2neo import authenticate, Graph
 import json
 from pprint import pprint
 
+def create_city_nodes(list_of_cities):
+	for city in list_of_cities:
+    	city_to_be_added = graph.merge_one("City", "name", city) 
+	return
 
 def create_country_nodes(list_of_countries):
 	for country in list_of_countries:
         country_to_be_added = graph.merge_one("Country", "name", country) 
 	return
 
-def create_city_nodes(list_of_cities):
-	for city in list_of_cities:
-    	city_to_be_added = graph.merge_one("City", "name", city) 
-	return
-
 def create_continent_nodes(list_of_continents):
 	for continent in list_of_continents:
         continent_to_be_added=graph.merge_one("Continent", "name", continent)
-	return
-
-def create_article_nodes(article_dict, journal):
-	create_article_cypher_query = "MERGE (n:Article {name:{N}}) RETURN n"
-	tx = graph.cypher.begin()
-
-	for volume_key, volume_value in article_dict:
-		for issue_key, issue_value in article_dict[volume_key]:
-			for article in issue_value:
-				latest_article_ref = graph.merge_
-				tx.append(create_article_cypher_query, {"N":article})
-			tx.process()
-				# py2neo code for creating new article node.
-				# py2neo code for creating relationship between article and journal node using volume & issue info from the corresponding parent loop variables
-	return
-
-def create_journal_nodes(journal_structure):
-	create_journal_cypher_query = "MERGE (n:Journal {name:{N}}) RETURN n"
-
-	for journal in journal_structure.keys():
-		# py2neo code for inserting new journal node.
-		article_structure = {k:v for k, v in journal_article(journal)}
-		create_article_nodes(article_structure, journal)
 	return
 
 def create_geophysical_nodes():
@@ -53,26 +29,56 @@ def create_geophysical_nodes():
 	create_city_nodes()
 	return
 
-def create_member_nodes():
-	with open('data/acm_journal_article.json') as journal_article_file:
-		 journal_structure = json.load(journal_article_file)
-	
-	create_journal_nodes(journal_structure)
+def create_entity_nodes():
+	with open('data/new.json') as journal_article_file:
+		journal_structure = json.load(journal_article_file)
+
+	j_list = []
+	a_list = []
+
+	for journal_key, journal_value in journal_structure.items():
+		j_list.append(journal_key)
+		print(journal_key)
+		journal_to_be_added = graph.merge_one("Journal", "name", journal_key)
+		for volume_key, volume_value in journal_value.items():
+			print('\t' + volume_key)
+			for issue_key, issue_value in volume_value.items():
+				print('\t\t' + issue_key)
+				for issue_attributes_key, issue_attributes_value in issue_value.items():
+					# print(issue_attributes_key)
+					if issue_attributes_key in "articles":
+						for article_key, article_value in issue_attributes_value.items():
+							title = journal_structure[journal_key][volume_key][issue_key][issue_attributes_key][article_key]["title"]
+							abstract = journal_structure[journal_key][volume_key][issue_key][issue_attributes_key][article_key]["abstract"]
+							authors = journal_structure[journal_key][volume_key][issue_key][issue_attributes_key][article_key]["authors"]
+							doi = journal_structure[journal_key][volume_key][issue_key][issue_attributes_key][article_key]["doi"]		
+							article_to_be_added = graph.merge_one("Article", "doi", doi)
+							article_to_be_added['abstract'] = abstract
+							article_to_be_added['authors'] = authors
+							article_to_be_added['title'] = title
+							article_to_be_added.push()
+							print(title)
+							relationship_to_be_added = graph.create_unique(Relationship(article_to_be_added, "printed_in", journal_to_be_added, volume=volume_key, issue=issue_key, issn=journal_structure[journal_key][volume_key][issue_key]["issn"]))
 	return
-
-
-	article_list = [article in journal_article[journal_article[vol] for vol in ]]
-	create_article_nodes(article_list)
+	
 def populate_db():
 	with open('config/neo4j_config.json') as config_file:
 		config = json.load(config_file)
 
 	authenticate(config['address'], config['username'], config['password'])
 	graph = Graph()
-	print("Connected to graph")
+	print("Connected to graph...")
 
 	print("Building GEOPHYSICAL nodes in the SciBase Graph!")
 	create_geophysical_nodes()
+
+	print("Building MEMBER nodes in the SciBase Graph!")
+	create_member_nodes()
+	
+	print("Building ENTITY nodes in the SciBase Graph!")
+	create_entity_nodes()
+
+
 	return
 
 if __name__ == '__main__':
