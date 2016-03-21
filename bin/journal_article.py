@@ -1,17 +1,22 @@
+# Import libraries used in the script!
 from pprint import pprint
 from py2neo import authenticate, Graph, Relationship, neo4j
 import json
 
+# Read the Neo4j config file for authentication parameters.
 with open('config/neo4j_config.json') as config_file:
 	config = json.load(config_file)
 authenticate(config['address'], config['username'], config['password'])
 
+# Connect to the graph.
 graph = Graph()
 print("Connected to graph")
 
+# Read the author data structure file for ACM Scraping.
 with open('data/acm_author.json') as author_file:
 	author_structure = json.load(author_file)
 
+# Create a node for every author of type "Author" storing the first, middle, last and full name. Currently we use the unique ACM Profile link for the author as the unique constraint while creating the node.
 for key, value in author_structure.items():
 	for record in value:
 		link = record['link']
@@ -22,18 +27,20 @@ for key, value in author_structure.items():
 
 		author_to_be_added = graph.merge_one("Author", "link", link)
 		author_to_be_added['full_name'] = full_name
-		author_to_be_added['fist_name'] = first_name
+		author_to_be_added['first_name'] = first_name
 		author_to_be_added['middle_name'] = mid_name
 		author_to_be_added['last_name'] = last_name
 		author_to_be_added.push()
 		print(record['FULL Name'])
 
+# Read the journal and article data structure file for ACM Scraping
 with open('data/acm_journal_article.json') as journal_article_file:
 	journal_structure = json.load(journal_article_file)
 
 j_list = []
 a_list = []
 
+# Create a node for every journal and article that is encountered in the data structure. Also, a relationship between the journal and article and article and the corresponding authors is created. While creating the relationship between the journal and the article, properties like volume, issue an issn are added to the relationship. Similarly the relationship between an article and its corresponding authors include a "primary" boolean property indicating whether or not the author is a primary author of the corresponding article.
 for journal_key, journal_value in journal_structure.items():
 	j_list.append(journal_key)
 	print(journal_key)
